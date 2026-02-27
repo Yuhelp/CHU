@@ -47,7 +47,7 @@ param(
     
     [string]$TargetOU = "OU=Computers W11,DC=chu-angers,DC=intra",
     
-    [int[]]$Modules = @(1,2,3,4,5,6,7,8,9,10)
+    [int[]]$Modules = @(1,2,3,4,5,6,7,8,9,10,11)
 )
 
 #Requires -Modules GroupPolicy
@@ -117,6 +117,7 @@ $ModuleScripts = @{
     8  = "GPO-08-Defender-SmartScreen.ps1"
     9  = "GPO-09-RemoteManagement.ps1"
     10 = "GPO-10-SystemSettings.ps1"
+    11 = "GPO-11-StartMenu-Layout.ps1"
 }
 
 $SuccessCount = 0
@@ -143,7 +144,7 @@ foreach ($ModuleNum in $Modules | Sort-Object) {
             $FailureCount++
         }
     } else {
-        Write-Warning "Module $ModuleNum non reconnu (valeurs valides : 1-10)"
+        Write-Warning "Module $ModuleNum non reconnu (valeurs valides : 1-11)"
     }
 }
 
