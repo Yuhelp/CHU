@@ -17,6 +17,7 @@
     8. Windows Defender et SmartScreen
     9. Gestion à Distance
     10. Paramètres Système
+    11. Disposition du Menu Démarrer
 
 .PARAMETER GPOName
     Nom de la GPO à créer/configurer
@@ -28,7 +29,7 @@
     OU cible pour la liaison de la GPO
 
 .PARAMETER Modules
-    Liste des modules à exécuter (1-10). Par défaut : tous les modules
+    Liste des modules à exécuter (1-11). Par défaut : tous les modules
 
 .EXAMPLE
     .\Deploy-All-GPO-Modules.ps1 -GPOName "W11_Complete" -DomainName "chu-angers.intra"
@@ -47,7 +48,7 @@ param(
     
     [string]$TargetOU = "OU=Computers W11,DC=chu-angers,DC=intra",
     
-    [int[]]$Modules = @(1,2,3,4,5,6,7,8,9,10)
+    [int[]]$Modules = @(1,2,3,4,5,6,7,8,9,10,11)
 )
 
 #Requires -Modules GroupPolicy
@@ -117,6 +118,7 @@ $ModuleScripts = @{
     8  = "GPO-08-Defender-SmartScreen.ps1"
     9  = "GPO-09-RemoteManagement.ps1"
     10 = "GPO-10-SystemSettings.ps1"
+    11 = "GPO-11-StartMenuLayout.ps1"
 }
 
 $SuccessCount = 0
@@ -143,7 +145,7 @@ foreach ($ModuleNum in $Modules | Sort-Object) {
             $FailureCount++
         }
     } else {
-        Write-Warning "Module $ModuleNum non reconnu (valeurs valides : 1-10)"
+        Write-Warning "Module $ModuleNum non reconnu (valeurs valides : 1-11)"
     }
 }
 

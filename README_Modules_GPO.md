@@ -20,8 +20,9 @@ Au lieu d'un seul script monolithique, la GPO est divisée en **10 modules indé
 | **8** | `GPO-08-Defender-SmartScreen.ps1` | Defender et SmartScreen | ~10 paramètres |
 | **9** | `GPO-09-RemoteManagement.ps1` | Gestion à Distance | ~8 paramètres |
 | **10** | `GPO-10-SystemSettings.ps1` | Paramètres Système | ~40 paramètres |
+| **11** | `GPO-11-StartMenuLayout.ps1` | Disposition Menu Démarrer | ~3 paramètres + fichier JSON |
 
-**Total : ~200 paramètres de registre configurés**
+**Total : ~203 paramètres de registre configurés + 1 fichier de disposition**
 
 ## Avantages de l'Approche Modulaire
 
@@ -198,6 +199,19 @@ Configure les paramètres système divers :
 - PowerShell (RemoteSigned)
 
 **Cas d'usage :** Standardisation de l'environnement utilisateur
+
+### Module 11 : Disposition du Menu Démarrer
+**Fichier :** `GPO-11-StartMenuLayout.ps1`
+
+Configure la disposition du menu Démarrer Windows 11 :
+- Déploiement du fichier `LayoutModification.json` dans SYSVOL
+- Configuration de la stratégie `ConfigureStartPins` (StartLayoutFile)
+- Mode "Appliquer une fois" (modifiable) ou "Verrouillé" (imposé)
+- 20 applications épinglées : Photos, Paramètres, Calculatrice, Alarmes, Bloc-notes, Paint, Capture d'écran, Explorateur, Outlook, CHU, Applications de Gestion, Adobe Acrobat, Excel, Chrome, Teams, OneNote, PowerPoint, Visio, Word, VPN Global Protect
+
+**Paramètre supplémentaire :** `-ApplyOnce $true` (défaut) ou `-ApplyOnce $false` pour verrouiller la disposition
+
+**Cas d'usage :** Standardisation du menu Démarrer, déploiement des raccourcis métier
 
 ## Prérequis
 
